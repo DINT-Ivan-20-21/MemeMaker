@@ -47,6 +47,8 @@
                     Value="Center" />
             <Setter Property="Margin"
                     Value="0,0,25,0" />
+            <Setter Property="MinWidth"
+                    Value="500" />
             <Setter Property="Grid.Column"
                     Value="1" />
         </Style>
@@ -67,7 +69,7 @@
                     Value="500" />
         </Style>
     </Window.Resources>
-    <ScrollViewer>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -117,6 +119,7 @@
             <Border Grid.Column="0"
                     Grid.Row="6"
                     Grid.ColumnSpan="2"
+                    VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Background="#FFF3D2D2"
                     BorderBrush="Black"
