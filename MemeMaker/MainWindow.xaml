@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MemeMaker"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="MemeMaker"
+        Icon="image_icon.ico"
         Height="725"
         Width="840">
     <Window.Resources>
