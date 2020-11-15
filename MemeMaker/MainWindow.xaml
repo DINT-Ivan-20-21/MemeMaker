@@ -5,7 +5,139 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MemeMaker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-    </Grid>
+        Title="MainWindow"
+        Height="725"
+        Width="840">
+    <Window.Resources>
+        <local:BordeConverter x:Key="Converter"></local:BordeConverter>
+
+        <Style TargetType="{x:Type RowDefinition}">
+            <Setter Property="Height"
+                    Value="30" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="5,0,0,0" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}"
+               x:Key="TextoMeme">
+            <Setter Property="FontFamily"
+                    Value="Impact" />
+            <Setter Property="FontSize"
+                    Value="36" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="TextWrapping"
+                    Value="Wrap" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="0,0,25,0" />
+            <Setter Property="Grid.Column"
+                    Value="1" />
+        </Style>
+        <Style TargetType="{x:Type Slider}">
+            <Setter Property="Width"
+                    Value="600" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
+            <Setter Property="Grid.Column"
+                    Value="1" />
+            <Setter Property="Minimum"
+                    Value="100" />
+            <Setter Property="Maximum"
+                    Value="1000" />
+            <Setter Property="Value"
+                    Value="500" />
+        </Style>
+    </Window.Resources>
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition Height="*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="85" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Text="Texto superior" />
+            <TextBlock Grid.Row="1"
+                       Text="Texto inferior" />
+            <TextBlock Grid.Row="2"
+                       Text="Alto" />
+            <TextBlock Grid.Row="3"
+                       Text="Ancho" />
+            <TextBlock Grid.Row="4"
+                       Text="Imagen" />
+            <TextBlock Grid.Row="5"
+                       Text="Borde" />
+
+            <TextBox x:Name="TextoSuperior"
+                     Grid.Row="0"
+                     Text="Texto superior" />
+            <TextBox x:Name="TextoInferior"
+                     Grid.Row="1"
+                     Text="Texto inferior" />
+            <Slider x:Name="Alto"
+                    Grid.Row="2" />
+            <Slider x:Name="Ancho"
+                    Grid.Row="3" />
+            <TextBox x:Name="URIImagen"
+                     Grid.Row="4" />
+            <CheckBox x:Name="Borde"
+                      Grid.Row="5"
+                      Grid.Column="1"
+                      VerticalAlignment="Center"
+                      IsChecked="True" />
+            <Border Grid.Column="0"
+                    Grid.Row="6"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    Background="#FFF3D2D2"
+                    BorderBrush="Black"
+                    BorderThickness="{Binding ElementName=Borde, Path=IsChecked, Converter={StaticResource Converter}}"
+                    Width="{Binding  ElementName=Ancho, Path=Value}"
+                    Height="{Binding  ElementName=Alto, Path=Value}">
+                <Grid x:Name="Meme">
+                    <Image Source="{Binding ElementName=URIImagen, Path=Text}"
+                           Stretch="Fill" />
+                    <TextBlock Style="{StaticResource TextoMeme}"
+                               VerticalAlignment="Top"
+                               Text="{Binding ElementName=TextoSuperior, Path=Text}" />
+                    <TextBlock Style="{StaticResource TextoMeme}"
+                               VerticalAlignment="Bottom"
+                               Text="{Binding ElementName=TextoInferior, Path=Text}" />
+                </Grid>
+            </Border>
+            <Button Grid.Column="0"
+                    Grid.Row="7"
+                    Margin="5"
+                    Content="Exportar"
+                    Click="Button_Click"></Button>
+        </Grid>
+    </ScrollViewer>
 </Window>

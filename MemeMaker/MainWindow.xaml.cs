@@ -1,28 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MemeMaker
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private string filePath = @"C:/Users/" + Environment.GetEnvironmentVariable("UserName") + "/Desktop/meme.png";
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            RenderTargetBitmap bitmap = new RenderTargetBitmap((int)Meme.ActualWidth, (int)Meme.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+
+            bitmap.Render(Meme);
+            BitmapFrame frame = BitmapFrame.Create(bitmap);
+            encoder.Frames.Add(frame);
+
+            using (FileStream stream = File.Create(filePath))
+            {
+                encoder.Save(stream);
+            }
+
+            MessageBox.Show("El meme se exporto correctamente");
         }
     }
 }
